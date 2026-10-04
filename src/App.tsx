@@ -13,6 +13,7 @@ import {
   Section,
   Subtitle,
   Tag,
+  TextLink,
 } from './components'
 import {
   awards,
@@ -31,21 +32,21 @@ import {
 const { Phone, AtSign, Link, MapPin, Calendar } = ContactIcons
 
 function Header() {
-  const contact = [
+  const contact: { icon: typeof Phone; text: string; href?: string }[] = [
     { icon: Phone, text: header.phone },
-    { icon: AtSign, text: header.email },
-    { icon: Link, text: header.linkedin },
-    { icon: Link, text: header.github },
+    { icon: AtSign, text: header.email, href: `mailto:${header.email}` },
+    { icon: Link, text: header.linkedin, href: header.linkedin },
+    { icon: Link, text: header.github, href: header.github },
   ]
   const personal = [
     { icon: MapPin, text: header.location },
   ]
   const row = (items: typeof contact) => (
     <div className="flex flex-wrap items-center gap-x-[12px] text-[10px] leading-[1.5] font-medium text-ink">
-      {items.map(({ icon: Icon, text }) => (
+      {items.map(({ icon: Icon, text, href }) => (
         <span key={text} className="flex items-center gap-[4px]">
           <Icon size={10} strokeWidth={2.4} className="text-accent" />
-          {text}
+          {href ? <TextLink href={href}>{text}</TextLink> : text}
         </span>
       ))}
     </div>
@@ -183,6 +184,11 @@ function PageTwo() {
           <Bullets items={p.bullets} />
         </Entry>
       ))}
+      <div className="mt-[8px] flex items-center gap-[4px] text-[10px] text-body">
+        <Link size={10} strokeWidth={2.4} className="text-accent" />
+        <span>More projects on GitHub:</span>
+        <TextLink href={header.github} />
+      </div>
     </Section>
   )
 
@@ -217,9 +223,10 @@ function PageTwo() {
         {references.map((r, i) => (
           <Entry key={r.name} last={i === references.length - 1}>
             <ItemTitle>{r.name}</ItemTitle>
-            <a href={`mailto:${r.email}`} className="text-[10px] text-body underline">
-              {r.email}
-            </a>
+            <div className="flex items-center gap-[4px] text-[10px]">
+              <AtSign size={10} strokeWidth={2.4} className="shrink-0 text-accent" />
+              <TextLink href={`mailto:${r.email}`}>{r.email}</TextLink>
+            </div>
           </Entry>
         ))}
       </Section>

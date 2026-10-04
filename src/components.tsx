@@ -65,6 +65,16 @@ export function Subtitle({ children }: { children: ReactNode }) {
 
 const iconProps = { size: 10, strokeWidth: 2.2, className: 'shrink-0' }
 
+/** Accent-coloured, underlined link. Shows the URL without its protocol. */
+export function TextLink({ href, children }: { href: string; children?: ReactNode }) {
+  const url = /^(https?:|mailto:|tel:)/.test(href) ? href : `https://${href}`
+  return (
+    <a href={url} target="_blank" rel="noreferrer" className="font-medium text-accent underline">
+      {children ?? href.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+    </a>
+  )
+}
+
 export function Meta({ date, location, link }: { date?: string; location?: string; link?: string }) {
   return (
     <div className="text-[9.5px] leading-[1.45] text-muted">
@@ -86,8 +96,8 @@ export function Meta({ date, location, link }: { date?: string; location?: strin
       )}
       {link && (
         <div className="flex items-center gap-[4px]">
-          <Link {...iconProps} />
-          {link}
+          <Link {...iconProps} className="shrink-0 text-accent" />
+          <TextLink href={link} />
         </div>
       )}
     </div>

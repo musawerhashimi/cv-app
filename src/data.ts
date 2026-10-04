@@ -130,6 +130,18 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: 'Visa Registration & Management System',
+    date: '10/2026',
+    link: 'https://ausbildungcampus.org/',
+    description:
+      'Developed a web-based platform integrating a public website, customer portal, and internal MIS for managing visa applications and customer services.',
+    bullets: [
+      'Implemented online customer registration, visa application and document management, and real-time application tracking and notifications.',
+      'Built email communication with attachments and a CMS for managing public website content.',
+      'Developed cash payment and receipt recording, user management, and operational reporting modules.',
+    ],
+  },
+  {
     title: 'Conflict-Affected Legal Scholars Network (CALSN) – Academic Networking Platform',
     date: '05/2026 - 08/2026',
     link: 'https://www.calsnetwork.org/',
